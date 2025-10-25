@@ -1,47 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { apiKey, apiUrl } from '../config';
 import Button from '../components/Button';
-import { DetailedResult } from '../types/search';
+import { useMovieDetails } from '../hooks/useMovieDetails';
 
 const Details: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [details, setDetails] = useState<DetailedResult | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    if (id) {
-      fetchDetails(id);
-    }
-  }, [id]);
+  const { data: details, isLoading, isError, error } = useMovieDetails(id || '');
 
-  const fetchDetails = (identifier: string) => {
-    setLoading(true);
-    
-    const isImdbId = identifier.startsWith('tt');
-    const queryParam = isImdbId ? `i=${identifier}` : `t=${encodeURIComponent(identifier)}`;
-    
-    fetch(`${apiUrl}?${queryParam}&apikey=${apiKey}&plot=full`)
-      .then((response) => response.json())
-      .then((data: DetailedResult) => {
-        console.log("Details Response:", data);
-        if (data.Response === "True") {
-          setDetails(data);
-        } else {
-          setError("Could not load details. The movie or show might not exist.");
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching details:", error);
-        setError("An error occurred while fetching details.");
-        setLoading(false);
-      });
-  };
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="container mt-5">
         <div className="text-center my-5">
@@ -54,15 +22,15 @@ const Details: React.FC = () => {
     );
   }
 
-  if (error || !details) {
+  if (isError || !details) {
     return (
       <div className="container mt-5">
         <div className="alert alert-danger" role="alert">
           <i className="bi bi-exclamation-triangle me-2"></i>
-          {error || "No details found"}
+          {error instanceof Error ? error.message : 'Could not load details'}
         </div>
         <div className="d-flex gap-2">
-          <Button label=" <- Go Back" onClick={() => navigate(-1)} variant="secondary" />
+          <Button label="Go Back" onClick={() => navigate(-1)} variant="secondary" />
           <Button label="Home" onClick={() => navigate('/')} variant="primary" />
         </div>
       </div>
@@ -73,7 +41,7 @@ const Details: React.FC = () => {
     <div className="container mt-4 mb-5">
       <div className="d-flex gap-2 mb-4">
         <Button 
-          label="← Go Back" 
+          label="Go Back" 
           onClick={() => navigate(-1)} 
           variant="secondary"
         />
@@ -245,6 +213,7 @@ const Details: React.FC = () => {
               onClick={() => console.log('Mark as watched:', details.imdbID)}
               variant="info"
             />
+
             <a
               href={`https://www.imdb.com/title/${details.imdbID}`}
               target="_blank"

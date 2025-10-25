@@ -1,52 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { apiKey, apiUrl } from '../config';
 import Button from '../components/Button';
 import ResultCard from '../components/ResultCard';
-import { SearchResponse } from '../types/search';
+import { useSearchMovies } from '../hooks/useSearchMovies';
 
 const Results: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
-  
-  const [results, setResults] = useState<SearchResponse | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    if (query) {
-      fetchResults(query);
-    } else {
+  const { data: results, isLoading, isError, error } = useSearchMovies(query);
+
+  // Redirect to home if no query
+  React.useEffect(() => {
+    if (!query) {
       navigate('/');
     }
   }, [query, navigate]);
 
-  const fetchResults = (searchTerm: string) => {
-    setLoading(true);
-    setError("");
-    
-    fetch(`${apiUrl}?s=${encodeURIComponent(searchTerm)}&apikey=${apiKey}`)
-      .then((response) => response.json())
-      .then((data: SearchResponse) => {
-        console.log("API Response:", data);
-        
-        if (data.Response === "True") {
-          setResults(data);
-        } else {
-          setError("No results found. Try a different search term.");
-          setResults(null);
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching API:", error);
-        setError("An error occurred while fetching data.");
-        setLoading(false);
-      });
-  };
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="container mt-5">
         <div className="text-center my-5">
@@ -75,10 +47,10 @@ const Results: React.FC = () => {
         </h2>
       </div>
 
-      {error && (
+      {isError && (
         <div className="alert alert-warning" role="alert">
           <i className="bi bi-exclamation-triangle me-2"></i>
-          {error}
+          {error instanceof Error ? error.message : 'An error occurred while searching'}
           <div className="mt-2">
             <Button 
               label="Try Another Search" 

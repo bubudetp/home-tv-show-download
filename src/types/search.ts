@@ -10,6 +10,7 @@ export interface SearchResponse {
   Search: SearchResult[];
   totalResults: string;
   Response: string;
+  Error?: string;
 }
 
 export interface DetailedResult {
@@ -43,4 +44,5 @@ export interface DetailedResult {
   Production?: string;
   Website?: string;
   Response: string;
+  Error?: string;
 }
