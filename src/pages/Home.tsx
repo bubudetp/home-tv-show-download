@@ -1,59 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiKey, apiUrl } from '../config';
 import SearchInput from '../components/SearchInput';
 import Button from '../components/Button';
-import ResultCard from '../components/ResultCard';
-import { SearchResponse } from '../types/search';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [results, setResults] = useState<SearchResponse | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const handleSubmit = () => {
+  const handleSearch = () => {
     if (!searchTerm.trim()) {
       setError("Please enter a search term");
       return;
     }
-
-    console.log("Search submitted:", searchTerm);
-    setLoading(true);
-    setError("");
     
-    fetch(`${apiUrl}=${encodeURIComponent(searchTerm)}&apikey=${apiKey}`)
-      .then((response) => response.json())
-      .then((data: SearchResponse) => {
-        console.log("API Response:", data);
-        
-        if (data.Response === "True") {
-          setResults(data);
-        } else {
-          setError("No results found. Try a different search term.");
-          setResults(null);
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching API:", error);
-        setError("An error occurred while fetching data.");
-        setLoading(false);
-      });
+    navigate(`/results?q=${encodeURIComponent(searchTerm)}`);
   };
 
-  const handleKeyPress = () => {
-    handleSubmit();
-  };
-
-  const handleQuickSearch = () => {
+  const handleQuickView = () => {
     if (!searchTerm.trim()) {
       setError("Please enter a movie or show name");
       return;
     }
     
     navigate(`/details/${encodeURIComponent(searchTerm)}`);
+  };
+
+  const handleKeyPress = () => {
+    handleSearch();
   };
 
   return (
@@ -81,16 +55,14 @@ const Home: React.FC = () => {
               
               <div className="d-flex gap-2">
                 <Button 
-                  label={loading ? "Searching..." : "Search Multiple Results"} 
-                  onClick={handleSubmit}
-                  disabled={loading}
+                  label="Search Multiple Results" 
+                  onClick={handleSearch}
                   variant="primary"
                   className="flex-grow-1"
                 />
                 <Button 
                   label="Quick View" 
-                  onClick={handleQuickSearch}
-                  disabled={loading}
+                  onClick={handleQuickView}
                   variant="success"
                 />
               </div>
@@ -110,29 +82,6 @@ const Home: React.FC = () => {
           )}
         </div>
       </div>
-
-      {loading && (
-        <div className="text-center my-5">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <p className="mt-2">Searching...</p>
-        </div>
-      )}
-
-      {results && results.Search && (
-        <div className="mt-5">
-          <h2 className="mb-4">
-            Search Results 
-            <span className="badge bg-primary ms-2">{results.totalResults} found</span>
-          </h2>
-          <div className="row">
-            {results.Search.map((result) => (
-              <ResultCard key={result.imdbID} result={result} />
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

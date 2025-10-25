@@ -61,22 +61,30 @@ const Details: React.FC = () => {
           <i className="bi bi-exclamation-triangle me-2"></i>
           {error || "No details found"}
         </div>
-        <Button label="← Back to Search" onClick={() => navigate('/')} />
+        <div className="d-flex gap-2">
+          <Button label=" <- Go Back" onClick={() => navigate(-1)} variant="secondary" />
+          <Button label="Home" onClick={() => navigate('/')} variant="primary" />
+        </div>
       </div>
     );
   }
 
   return (
     <div className="container mt-4 mb-5">
-      <Button 
-        label="← Back to Search" 
-        onClick={() => navigate('/')} 
-        variant="secondary"
-        className="mb-4"
-      />
+      <div className="d-flex gap-2 mb-4">
+        <Button 
+          label="← Go Back" 
+          onClick={() => navigate(-1)} 
+          variant="secondary"
+        />
+        <Button 
+          label="New Search" 
+          onClick={() => navigate('/')} 
+          variant="primary"
+        />
+      </div>
 
       <div className="row">
-        {/* Poster Section */}
         <div className="col-md-4 mb-4">
           <img
             src={details.Poster !== 'N/A' ? details.Poster : 'https://via.placeholder.com/300x450?text=No+Image'}
@@ -84,7 +92,6 @@ const Details: React.FC = () => {
             alt={details.Title}
           />
           
-          {/* Rating Card */}
           <div className="card mt-3 shadow-sm">
             <div className="card-body text-center">
               <h5 className="card-title">IMDb Rating</h5>
@@ -96,7 +103,6 @@ const Details: React.FC = () => {
             </div>
           </div>
 
-          {/* Other Ratings */}
           {details.Ratings && details.Ratings.length > 0 && (
             <div className="card mt-3 shadow-sm">
               <div className="card-body">
@@ -138,7 +144,6 @@ const Details: React.FC = () => {
             </div>
           </div>
 
-          {/* Plot */}
           <div className="card shadow-sm mb-4">
             <div className="card-body">
               <h5 className="card-title">
@@ -149,7 +154,6 @@ const Details: React.FC = () => {
             </div>
           </div>
 
-          {/* Genre */}
           <div className="mb-4">
             <h5><i className="bi bi-tags me-2"></i>Genre</h5>
             <div>
@@ -223,7 +227,6 @@ const Details: React.FC = () => {
             </div>
           </div>
 
-          {/* Awards */}
           {details.Awards && details.Awards !== 'N/A' && (
             <div className="alert alert-success" role="alert">
               <i className="bi bi-trophy me-2"></i>
@@ -231,7 +234,6 @@ const Details: React.FC = () => {
             </div>
           )}
 
-          {/* Action Buttons */}
           <div className="d-flex gap-2 mt-4">
             <Button
               label="Add to Watchlist"
