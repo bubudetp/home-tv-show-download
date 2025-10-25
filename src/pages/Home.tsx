@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { apiKey, apiUrl } from '../config';
 import SearchInput from '../components/SearchInput';
 import Button from '../components/Button';
@@ -6,6 +7,7 @@ import ResultCard from '../components/ResultCard';
 import { SearchResponse } from '../types/search';
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [results, setResults] = useState<SearchResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,10 +22,8 @@ const Home: React.FC = () => {
     console.log("Search submitted:", searchTerm);
     setLoading(true);
     setError("");
-
-    console.log(`Fetching from API: ${apiUrl}?s=${searchTerm}&apikey=${apiKey}`);
     
-    fetch(`${apiUrl}?s=${searchTerm}&apikey=${apiKey}`)
+    fetch(`${apiUrl}=${encodeURIComponent(searchTerm)}&apikey=${apiKey}`)
       .then((response) => response.json())
       .then((data: SearchResponse) => {
         console.log("API Response:", data);
@@ -45,6 +45,15 @@ const Home: React.FC = () => {
 
   const handleKeyPress = () => {
     handleSubmit();
+  };
+
+  const handleQuickSearch = () => {
+    if (!searchTerm.trim()) {
+      setError("Please enter a movie or show name");
+      return;
+    }
+    
+    navigate(`/details/${encodeURIComponent(searchTerm)}`);
   };
 
   return (
@@ -69,12 +78,27 @@ const Home: React.FC = () => {
                 label="Search"
                 showSearchIcon={true}
               />
-              <Button 
-                label={loading ? "Searching..." : "Search"} 
-                onClick={handleSubmit}
-                disabled={loading}
-                fullWidth={true}
-              />
+              
+              <div className="d-flex gap-2">
+                <Button 
+                  label={loading ? "Searching..." : "Search Multiple Results"} 
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  variant="primary"
+                  className="flex-grow-1"
+                />
+                <Button 
+                  label="Quick View" 
+                  onClick={handleQuickSearch}
+                  disabled={loading}
+                  variant="success"
+                />
+              </div>
+              
+              <small className="text-muted d-block mt-2">
+                <i className="bi bi-info-circle me-1"></i>
+                Use "Search Multiple Results" to see all matches, or "Quick View" to go directly to a specific title
+              </small>
             </div>
           </div>
 
