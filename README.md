@@ -1,47 +1,44 @@
-# Getting Started with Create React App
+# Home Media Automation UI
 
+A simple web page for downloading movies and TV shows to your home Jellyfin server.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What It Does
 
-## Available Scripts
+This tool helps you add movies and shows to your home server without doing it manually.
 
-In the project directory, you can run:
+## How It Works
 
-### `npm start`
+1. **Pick what you want** - Use the web page to search for movies or shows (gets info from IMDb)
+2. **Add to queue** - Your choice gets written to a text file on your home server
+3. **Auto download** - Another computer checks the text file and starts downloading
+4. **Auto sort** - Downloads go to the right Jellyfin folder:
+   - Movies → `/movies`
+   - Shows → `/shows`
+   - Anime → `/anime`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## The Setup
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+[Web Page] → [Text File] → [Download Script] → [Jellyfin]
+```
 
-### `npm test`
+- Web page runs on one machine
+- Text file lives on your home server
+- Another machine watches the text file and downloads stuff
+- Everything ends up in Jellyfin, ready to watch
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## What You Get
 
-### `npm run build`
+- Movie info from IMDb
+- Simple text file system
+- Everything happens automatically
+- Files go to the right folders
+- All on your home network
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+TODO
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## What You Need
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+TODO
