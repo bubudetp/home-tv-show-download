@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps {
-  label: string;
+  label: React.ReactNode;
   onClick: () => void;
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'link';
   size?: 'sm' | 'lg';

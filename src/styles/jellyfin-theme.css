@@ -1,0 +1,234 @@
+:root {
+  --jellyfin-primary: #00a4dc;
+  --jellyfin-primary-dark: #0081b3;
+  --jellyfin-secondary: #9d5dd6;
+  --jellyfin-bg-dark: #101010;
+  --jellyfin-bg-card: #1a1a1a;
+  --jellyfin-bg-hover: #252525;
+  --jellyfin-text-primary: #ffffff;
+  --jellyfin-text-secondary: #b8b8b8;
+  --jellyfin-text-muted: #888888;
+  --jellyfin-border: #2a2a2a;
+  --jellyfin-success: #4caf50;
+  --jellyfin-warning: #ff9800;
+  --jellyfin-danger: #f44336;
+}
+
+body {
+  background-color: var(--jellyfin-bg-dark);
+  color: var(--jellyfin-text-primary);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  background-color: var(--jellyfin-bg-card);
+  border: 1px solid var(--jellyfin-border);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 164, 220, 0.15);
+}
+
+.card-body {
+  color: var(--jellyfin-text-primary);
+}
+
+.card-title {
+  color: var(--jellyfin-text-primary);
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: var(--jellyfin-primary);
+  border-color: var(--jellyfin-primary);
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--jellyfin-primary-dark);
+  border-color: var(--jellyfin-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 164, 220, 0.4);
+}
+
+.btn-secondary {
+  background-color: var(--jellyfin-bg-hover);
+  border-color: var(--jellyfin-border);
+  color: var(--jellyfin-text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: #353535;
+  border-color: var(--jellyfin-border);
+}
+
+.btn-success {
+  background-color: var(--jellyfin-success);
+  border-color: var(--jellyfin-success);
+}
+
+.btn-info {
+  background-color: var(--jellyfin-secondary);
+  border-color: var(--jellyfin-secondary);
+}
+
+.btn-warning {
+  background-color: var(--jellyfin-warning);
+  border-color: var(--jellyfin-warning);
+  color: white;
+}
+
+.btn-outline-primary {
+  color: var(--jellyfin-primary);
+  border-color: var(--jellyfin-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--jellyfin-primary);
+  color: white;
+}
+
+.badge {
+  font-weight: 500;
+  padding: 0.4em 0.8em;
+  border-radius: 4px;
+}
+
+.badge.bg-primary {
+  background-color: var(--jellyfin-primary) !important;
+}
+
+.badge.bg-secondary {
+  background-color: var(--jellyfin-bg-hover) !important;
+}
+
+.badge.bg-info {
+  background-color: var(--jellyfin-secondary) !important;
+}
+
+.badge.bg-dark {
+  background-color: var(--jellyfin-bg-hover) !important;
+}
+
+.alert {
+  border-radius: 8px;
+  border: 1px solid var(--jellyfin-border);
+}
+
+.alert-warning {
+  background-color: rgba(255, 152, 0, 0.1);
+  border-color: var(--jellyfin-warning);
+  color: var(--jellyfin-text-primary);
+}
+
+.alert-danger {
+  background-color: rgba(244, 67, 54, 0.1);
+  border-color: var(--jellyfin-danger);
+  color: var(--jellyfin-text-primary);
+}
+
+.alert-success {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-color: var(--jellyfin-success);
+  color: var(--jellyfin-text-primary);
+}
+
+.text-muted {
+  color: var(--jellyfin-text-muted) !important;
+}
+
+.text-warning {
+  color: var(--jellyfin-warning) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--jellyfin-text-primary);
+}
+
+.form-control {
+  background-color: var(--jellyfin-bg-card);
+  border: 1px solid var(--jellyfin-border);
+  color: var(--jellyfin-text-primary);
+  border-radius: 6px;
+}
+
+.form-control:focus {
+  background-color: var(--jellyfin-bg-card);
+  border-color: var(--jellyfin-primary);
+  color: var(--jellyfin-text-primary);
+  box-shadow: 0 0 0 0.2rem rgba(0, 164, 220, 0.25);
+}
+
+.form-control::placeholder {
+  color: var(--jellyfin-text-muted);
+}
+
+.form-label {
+  color: var(--jellyfin-text-secondary);
+  font-weight: 500;
+}
+
+.spinner-border {
+  color: var(--jellyfin-primary);
+}
+
+img {
+  border-radius: 8px;
+}
+
+.display-4 {
+  color: var(--jellyfin-warning);
+}
+
+a {
+  color: var(--jellyfin-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--jellyfin-primary-dark);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--jellyfin-bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--jellyfin-bg-hover);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #353535;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a1a3a 100%);
+  padding: 3rem 0;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.result-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.result-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 164, 220, 0.2);
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(10px);
+  background: rgba(26, 26, 26, 0.8);
+}
